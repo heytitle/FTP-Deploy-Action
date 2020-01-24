@@ -21,8 +21,10 @@ fi;
 
 echo "Using $WDEFAULT_METHOD to connect to port $WDEFAULT_PORT"
 
+PARAMS="set ftp:ssl-allow no; set ftp:passive-mode off; mirror $WDEFAULT_ARGS -R $WDEFAULT_LOCAL_DIR $WDEFAULT_REMOTE_DIR; quit"
 echo "Uploading files..."
-lftp $WDEFAULT_METHOD://$FTP_SERVER:$WDEFAULT_PORT -u $FTP_USERNAME,$FTP_PASSWORD -e "set ftp:ssl-allow no; set ftp:passive-mode off; mirror $WDEFAULT_ARGS -R $WDEFAULT_LOCAL_DIR $WDEFAULT_REMOTE_DIR; quit"
+echo "with params $PARAMS"
+lftp $WDEFAULT_METHOD://$FTP_SERVER:$WDEFAULT_PORT -u $FTP_USERNAME,$FTP_PASSWORD -e "$PARAMS"
 
 echo "FTP Deploy Complete"
 exit 0
